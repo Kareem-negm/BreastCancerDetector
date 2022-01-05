@@ -13,22 +13,21 @@ from PIL import Image, ImageOps
 import numpy as np
 
 def main():
-    
-    # Set page title and favicon.
+    primaryColor="black"
+    backgroundColor="pink"
     st.set_page_config(
-    page_title="BreastCancerDetector"
-    )
+    page_title="BreastCancerDetector",page_icon= "🎗️")
 
-    st.title('Breast Cancer Detector')
-    st.write("by Breast Cancer Everywhere group")
-    st.image("app_pic.jpg", width=600)
-    st.write('This project was made by ITI-AI Pro students to help people detect breast cancer')
+    st.markdown("<h1 style='text-align: center; color: #f8e7ed; font-size:65px; font-family: Copperplatec'>Breast Cancer Detector</h1>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text_align: center; color: white;'>This program is designed to predict two severity of abnormalities associated with breast cancer cells: benign and malignant.</h4>", unsafe_allow_html=True)
+    st.image("app_pic.png", width=800)
 
-    image_input = st.file_uploader(label='Upload Breast Mammogram (PGM)', type=['pgm'])
+
+    image_input = st.file_uploader(label="Upload Breast Mammogram (PGM, PNG, JPG)",type=['pgm', 'png', 'jpg'])
     detect = st.button("Detect Breast Cancer")
     np.set_printoptions(suppress=True)
 
-    model = tensorflow.keras.models.load_model('Final_model.h5') # Change it
+    model = tensorflow.keras.models.load_model('Final_model.h5')
     
     if image_input is not None:
         
@@ -40,25 +39,47 @@ def main():
         image_array = np.asarray(image)
         data[0] = image_array
 
-#     image = Image.open(image_input,mode='r')
-#     image = image.convert('RGB')
-#     image = image.resize((224, 224))
-#     image_array = np.asarray(image)
-    
+
         size = st.slider("Adjust Image Size: ", 300, 1000)
         st.image(image, width=size)
-        st.write("------------------------------------------------------")
+        
 
     if detect:
         prediction = model.predict(data)
         class1 = prediction[0,0]
         class2 = prediction[0,1]
         if class1 > class2:
-            st.info(" This is a **Benign Tumor** by {:.2f}%".format(class1 * 100) )
+            st.info(" **Benign Tumor** by {:.2f}%. Please visit [breastcancer.org](https://www.breastcancer.org/) for more information about your next step".format(class1 * 100) )
         elif class2 > class1:
-            st.info(" This is **Malignant Tumor** by {:.2f}%".format(class2 * 100))
+            st.info(" **Malignant Tumor** by {:.2f}%. Please visit [breastcancer.org](https://www.breastcancer.org/) for more information about your next step ".format(class2 * 100))
         else:
-            st.write("We encountered an ERROR. This should be temporary, please try again with a better quality image. Cheers!")
+            st.info("We encountered an ERROR. This should be temporary, please try again with a better quality image. Cheers!")
+    
+    st.write("-----------------------------------------------------------")
+    st.markdown("<h3 style='text_align: center; color: #f8e7ed; font-size:40px; font-family: Copperplatec'>About Us</h3>",unsafe_allow_html=True)
+    st.markdown("<h5 style='text_align: center; color: #f8e7ed; font-family: Copperplatec'><i>This project was made by ITI-AI Pro students with the supervision of Eng. Kareem Negm, to help people detect breast cancer</i</h5>",unsafe_allow_html=True)
+    
+    
+    col1, col2, col3= st.columns(3)
+    with col1:
+        st.subheader("***Aya Shehata***")
+        st.image("https://static.streamlit.io/examples/cat.jpg")
+        st.write("check out [LinkedIn](https://www.linkedin.com/in/aya-shehata-0a455b1b6/)")
+        st.write("check out [Github](https://github.com/AyaShehata903)")
+
+    with col2:
+        st.subheader("***Omnia Mahdy***")
+        st.image("https://static.streamlit.io/examples/dog.jpg")
+        st.write("check out [LinkedIn](https://www.linkedin.com/in/omnia-imam)")
+        st.write("check out [Github](https://github.com/omnia-emam)")
+
+    with col3:
+        st.subheader("***Eng. Kareem Negm***")
+        st.image("https://avatars.githubusercontent.com/u/60659601?v=4")
+        st.write("check out [LinkedIn](https://www.linkedin.com/in/kareem-negm)")
+        st.write("check out [Github](https://github.com/Kareem-negm)")
+
+
 
 
 if __name__ == '__main__':

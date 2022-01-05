@@ -21,7 +21,7 @@ Mammograms from MIAS is preprocessed and features are extracted using the pre-tr
 - Pillow==8.4.0
 
 ## Dataset 📚
-we collect the data from the [Kaggle](
+we collect the data from [Kaggle](
 https://www.kaggle.com/kmader/mias-mammography) dataset
 
 
@@ -31,7 +31,7 @@ https://www.kaggle.com/kmader/mias-mammography) dataset
 
 | version | traning accuracy | test accuracy | f1 score | recall  | precision | Total Parameters|
 |--------|--------------|-------------|------------|----------|-------------|-------|
-|model 2 | 0.91 | 0.96 | 0.91 | 0.92 |0.92|22,665,282|
+|model 2 | 0.96 | 0.91 | 0.91 | 0.92 |0.92|22,665,282|
 | Findal model |0.96|0.96|0.97|0.95|0.98 |47,929,410|
 
 
@@ -53,8 +53,8 @@ https://www.kaggle.com/kmader/mias-mammography) dataset
 
 ## License 🔑
 
-when you push tell me to made the License 
 
+[MIT License](LICENSE)
 
 
 
